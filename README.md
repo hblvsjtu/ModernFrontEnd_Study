@@ -244,7 +244,6 @@
                     appCache.swapCache(); //置换新的Application Cache
                 }
 >>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
-
 #### 8) cacheStorage
 > - 
                 
@@ -252,3 +251,26 @@
                     console.log('navigator.serviceWorker exists');
                 else
                     console.log('navigator.serviceWorker no exists');
+
+
+        
+        
+------      
+        
+<h2 id='2'>二、前端与协议</h2>
+<h3 id='2.1'>2.1 Http协议概述</h3>  
+        
+#### 1) 组成部分
+> - 头部 请求类型+请求URL+协议版本+拓展内容
+> - 空行 用于隔开头部和正文
+> - 正文
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+#### 2) HTTP1.1
+> - 长连接 保证客户端和服务器端在一段时间内保持连接
+> - 默认包含请求头的keep-alive
+> - HTTP1.0则需要手动添加Connection: keep-alive
+> - 协议拓展切换：含有Upgrade头支持协议切换，如浏览器发送切换协议的请求切换到WebSocket协议
+                
+                Connection:Upgrade
+                Upgrade: WebSocket
+> - 
