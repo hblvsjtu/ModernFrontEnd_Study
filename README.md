@@ -218,9 +218,37 @@
                 };
 
                 // 分组法一
-                (document.cookie+";").match(/[^;]+=([^;]+?)[;|\s]/g);
+                document.cookie.match(/[^;]+=[^;]+?(?=;|\b)/g);
 
                 // 分组法二
+                document.cookie.split(';');
                 
 #### 6) Web SQL
-> - 非HTML5里的规范，只有较新的Chrome浏览器才能
+> - 非HTML5里的规范，只有较新的Chrome浏览器才能用，所以使用不多
+#### 7) IndexDB
+> - 大小限制为50MB
+> - 目前使用IndexDB的实际应用场景不是很多，而且将大量数据保存到本地也会造成数据泄露
+> - 一般了解即可无需在项目中使用
+#### 8) Application Cache离线应用
+> - 通过manifest配置文件在本地有选择性地存储JS、CSS、图片等静态资源的文件级缓存机制
+> - 页面打开时优先从Application Cache中访问资源，读取资源加载后同时检查服务器端的manifest文件是否已更新，如果没有更新则访问过程结束，如果有更新，则会把更新的内容重新拉渠道Application Cache中
+> - 更新内容后需要再一次访问后才会生效，而不是马上能生效，所以至少要第三次才能看到更新后的结果
+> - 离线存储的限制为5MB，现在来说显然不适用
+> - 仍然不能兼容目前主流的浏览器环境
+> - 如果manifest文件或者内部列表中的某个文件不能正常下载，整个更新过程将视为失败，浏览器将继续使用就的缓存。
+> - 总之Application Cache离线应用仍然不是一个成熟的本地缓存解决方案，实际项目中也不推荐使用。
+                
+                let appCache = window.applicationCache //查看Application Cache
+                appCache.update(); //尝试更新用户的Application Cache
+                if(appCache.status == window.applicationCache.UPDATEREADY) {
+                    appCache.swapCache(); //置换新的Application Cache
+                }
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+
+#### 8) cacheStorage
+> - 
+                
+                if(navigator.serviceWorker)
+                    console.log('navigator.serviceWorker exists');
+                else
+                    console.log('navigator.serviceWorker no exists');
