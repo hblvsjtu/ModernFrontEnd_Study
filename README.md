@@ -91,7 +91,7 @@
                     });
                 }());
             </script>
->>>>>> ![图1-1 前端应用开发模式演变.png](https://github.com/hblvsjtu/JVM_Study/blob/master/picture/%E5%9B%BE1-1%20%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png?raw=true)
+>>>>>> ![图1-1 前端应用开发模式演变.png](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-1%20%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E6%BC%94%E5%8F%98.png?raw=true)
                 
 
 <h3 id='1.2'>1.2 浏览器应用基础</h3>  
@@ -108,7 +108,7 @@
 > - 页面开始解析渲染DOM，展示页面
 #### 2) 浏览器组成结构
 > - 用户界面、浏览器引擎、渲染引擎、网络、JS引擎、后端UI、数据持久化存储
->>>>>> ![图1-2 浏览器组成结构.png](https://github.com/hblvsjtu/JVM_Study/blob/master/picture/%E5%9B%BE1-1%20%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png?raw=true)
+>>>>>> ![图1-2 浏览器组成结构.png](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-2%20%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BB%84%E6%88%90%E7%BB%93%E6%9E%84.png?raw=true)
 #### 3) 内核
 > - Trident内核，如IE、360、搜狗
 > - Gecko内核，Fixfox
@@ -131,14 +131,14 @@
 > - Webkit和Gecko内核主要的不同
 >> - Webkit中html和CSS的解析可以并行进行，而Gecko先进行html解析，在进行CSS解析
 >> - 相关术语不同，Webkit的渲染对象成为Render Tree渲染树，Gecko的称为Frame Tree
->>>>>> ![图1-3 Webkit内核渲染DOM流程.png](https://github.com/hblvsjtu/JVM_Study/blob/master/picture/%E5%9B%BE1-1%20%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png?raw=true)
->>>>>> ![图1-4 Gecko内核渲染DOM流程.png](https://github.com/hblvsjtu/JVM_Study/blob/master/picture/%E5%9B%BE1-1%20%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png?raw=true)
+>>>>>> ![图1-3 Webkit内核渲染DOM流程.png](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-3%20Webkit%E5%86%85%E6%A0%B8%E6%B8%B2%E6%9F%93DOM%E6%B5%81%E7%A8%8B.png?raw=true)
+>>>>>> ![图1-4 Gecko内核渲染DOM流程.png](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-4%20Gecko%E5%86%85%E6%A0%B8%E6%B8%B2%E6%9F%93DOM%E6%B5%81%E7%A8%8B.png?raw=true)
 #### 3) HTML解析
 > - DOM元素标签和DOM元素对象虽然都是用来描述DOM结构的，但是DOM元素标签是指文本话的HTML标识，而DOM元素对象则是指经过渲染引擎DOM解析后生成的具有节点父子关系的属性对象
->>>>>> ![图1-5 DOM结构解析示意图.png](https://github.com/hblvsjtu/JVM_Study/blob/master/picture/%E5%9B%BE1-1%20%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png?raw=true) 
+>>>>>> ![图1-5 DOM结构解析示意图.png](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-5%20DOM%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true) 
 #### ４) CSS解析
 > - CSS解析通过权重方式进行计算，！important > 内联样式规则（权重1000） > id选择器（权重100）> 类选择器（权重10）> 元素选择器（权重1）
->>>>>> ![图1-5 DOM结构解析示意图.png](https://github.com/hblvsjtu/JVM_Study/blob/master/picture/%E5%9B%BE1-1%20%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png?raw=true) 
+>>>>>> ![图1-6 CSS结构解析.png](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-6%20CSS%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90.png?raw=true) 
                 
 <h3 id='1.4'>1.4 浏览器数据持久化存储技术</h3>  
         
@@ -158,7 +158,7 @@
                 
                 <meta http-equiv="Expires" content="Mon 20 Jul 2016 23:00:00 GMT"/>
                 <meta http-equiv="Cache-Control" content="max-age=7200"/>
->>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/JVM_Study/blob/master/picture/%E5%9B%BE1-1%20%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
 #### 3) localStorage
 > - localStorage主要用于浏览器端保存体积较大的数据，localStorage在不同的浏览器中有长度限制各不相同：IE8以上5MB，Fixfox8以上5.24MB, Opera2MB, Chrome和Safari2.6MB
                 
@@ -171,7 +171,56 @@
 > - sessionStorage和localStorage的功能类似，但是sessionStorage在浏览器关闭时就会自动清空。sessionStorage和localStorage的API完全相同
 > - 不同浏览器无法共享localStorage或sessionStorage中的信息。相同浏览器的不同页面间可以共享相同的 localStorage（页面属于相同域名和端口），但是不同页面或标签页间无法共享sessionStorage的信息。这里需要注意的是，页面及标 签页仅指顶级窗口，如果一个标签页包含多个iframe标签且他们属于同源页面，那么他们之间是可以共享sessionStorage的。
 #### 5) Cookie
+> - HTTP Cookie，通常直接叫做cookie，最初是在客户端用于存储回话信息的。该标准要求服务器对任意HTTP请求发送Set-Cookie HTTP头作为响应的一部分，其中包含回话信息。浏览器会存储这样的回话信息，并在这之后，通过每个请求添加Cookie HTTP头将信息发回服务器。 [swpu_lwf的CSDN](https://blog.csdn.net/liwenfei123/article/details/80027155)
 > - 最大长度限制在4KB左右
 > - 使用document.cookie进行修改
+> - 三种类型
+>> - Session Cookie 一般不设置过期时间，生命周期只存在于浏览器会话期间，只要关闭浏览器窗口，Cookie就会消失，而且Session Cookie不保存在硬盘上而保存在内存上
+>> - 持久型Cookie 一般会设置过期时间
+>> - HttpOnly 前端浏览器无法读取，只能通过Http请求头发送到服务器端进行读写操作，这样可以避免服务器的Cookie记录被前端JavaScript修改，保证了服务器验证Cookie的安全性
+> - 
+                
+                //代码来源于JavaScript高级程序设计
+                var CookieUtil={
+                    get:function(name){
+                        var cookieName=encodeURIComponent(name)+"=",
+                            cookieStart=document.cookie.indexOf(cookieName), //获取cookie的起始index
+                            cookieValue=null;
+                        if(cookieStart>-1){
+                            var cookieEnd=document.cookie.indexOf(";",cookieStart); //c_end = document.cookie.indexof(";", c_start)是从上一步的位置开始查找的，直到";"的位置。
+                            if(cookieEnd==-1){
+                                cookieEnd=document.cookie.length;
+                            }
+                            cookieValue=decodeURIComponent(document.cookie.substring(cookieStart+cookieName.length,cookieEnd));
+                        }
+                        return cookieValue;
+                    },
+                    set:function(name,value,expires,path,domain,secure){//cookie的构成：名称、值、失效时间（何时应停止向浏览器发送cookie）、路径（向服务器发送cookie的特定域的路径）、域（cookie对于哪个域是有效的）、安全标志（指定后只能在使用SSL连接时才发送到服务器）
+                        var cookieText=encodeURIComponent(name) + "=" +encodeURIComponent(value);
+                        if(expires instanceof Date){
+                            cookieText += "; expires="+expires.toGMTString();//时间为GMT格式，注意信息之间用“; ”分割
+                        }
+                        if(path){
+                            cookieText += "; path="+path;
+                        }
+                        if(domain){
+                            cookieText += "; domain="+domain;
+                        }
+                        if(secure){
+                            cookieText += "; secure";
+                        }
+
+                        document.cookie = cookieText;
+                    },
+                    unset:function(name,path,domain,secure){//没有直接删除cookie的方法
+                        this.set(name,"",new Date(0),path,domain,secure);//使用相同路径、域、安全选项再次设置cookie，并将失效时间设置为过去的时间
+                    }
+                };
+
+                // 分组法一
+                (document.cookie+";").match(/[^;]+=([^;]+?)[;|\s]/g);
+
+                // 分组法二
+                
 #### 6) Web SQL
 > - 非HTML5里的规范，只有较新的Chrome浏览器才能
