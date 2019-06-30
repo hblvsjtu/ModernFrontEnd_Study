@@ -15,9 +15,25 @@
 ### [1.3 浏览器渲染引擎介绍](#1.3)
 ### [1.4 浏览器数据持久化存储技术](#1.4)
 ## [二、前端与协议](#2)
-### [2.1 HTTP协议](#2.1)
-### [2.2 Web安全机制](#2.2)
-### [2.3 垃圾收集算](#2.3)
+### [2.1 HTTP协议简介](#2.1)
+### [2.2 HTTP版本](#2.2)
+### [2.3 HTTP2.0](#2.3)
+### [2.4 Web安全机制](#2.4)
+### [2.5 HTTPS协议通讯过程](#2.5)
+### [2.6 前端实时协议](#2.6)
+### [2.7 RESTful数据协议规范](#2.7)
+### [2.8 与Native交互协议](#2.8)
+## [三、前端三层结构与应用](#3)
+### [3.1 结构层HTML、表现层CSS和行为层JavaScript](#3.1)
+### [3.2 前端结构层演进](#3.2)
+### [3.3 浏览器脚本演进历史](#3.3)
+### [3.4 前端表现层基础](#3.4)
+### [3.5 响应式网站开发技术](#3.5)
+## [四、现代前端交互框架](#4)
+### [4.1 直接DOM操作时代](#4.1)
+### [4.2 MV*交互模式](#4.2)
+### [4.3 数据变更检测](#4.3)
+### [4.4 Virtual DOM交互模式](#4.4)
 
         
         
@@ -236,6 +252,11 @@
 > - 离线存储的限制为5MB，现在来说显然不适用
 > - 仍然不能兼容目前主流的浏览器环境
 > - 如果manifest文件或者内部列表中的某个文件不能正常下载，整个更新过程将视为失败，浏览器将继续使用就的缓存。
+                
+                VERSION 1.0
+                CACHE:
+                main-abs931pd.css
+                main-file.js
 > - 总之Application Cache离线应用仍然不是一个成熟的本地缓存解决方案，实际项目中也不推荐使用。
                 
                 let appCache = window.applicationCache //查看Application Cache
@@ -273,4 +294,25 @@
                 
                 Connection:Upgrade
                 Upgrade: WebSocket
-> - 
+#### 3) 报文的头部信息
+> - Accept:告诉Web服务器自己能接收的媒体类型
+> - Accept-Charset: 浏览器接收内容的字符集，通常是udf-8
+> - Accept-Encoding: 浏览器节后内容的编码方式，如支持什么压缩方式
+> - Accept-Language: 浏览器
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
+>>>>>> ![图1-7 HTTP缓存判断流程](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-7%20HTTP%E7%BC%93%E5%AD%98%E5%88%A4%E6%96%AD%E6%B5%81%E7%A8%8B.png?raw=true) 
