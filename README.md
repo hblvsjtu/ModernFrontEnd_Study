@@ -279,7 +279,8 @@
 ------      
         
 <h2 id='2'>二、前端与协议</h2>
-<h3 id='2.1'>2.1 Http协议概述</h3>  
+<h3 id='2.1'>2.1 Http协议概述</h3> 
+<h3 id='2.2'>2.2 HTTP版本</h3> 
         
 #### 1) 组成部分
 > - 头部 请求类型+请求URL+协议版本+拓展内容
@@ -300,28 +301,48 @@
 > - Accept-Encoding: 浏览器节后内容的编码方式，如支持什么压缩方式
 > - Accept-Language: 浏览器
 >>>>>> ![图2-1](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE2-1.jpg?raw=true) 
+                    
+<h3 id='2.3'>2.3 HTTP2.0</h3> 
+<h3 id='2.4'>2.4 Web安全机制</h3> 
+                
 >>>>>> ![图2-2](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE2-2.jpg?raw=true) 
 >>>>>> ![图2-3](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE2-3.jpg?raw=true) 
+                
+<h3 id='2.5'>2.5 HTTPS协议通讯过程</h3> 
+<h3 id='2.6'>2.6 前端实时协议</h3> 
+                
 >>>>>> ![图2-4](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE2-4.jpg?raw=true) 
+                
+<h3 id='2.7'>2.7 RESTful数据协议规范</h3> 
+<h3 id='2.8'>2.8 与Native交互协议</h3> 
+                
 >>>>>> ![图2-5](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE2-5.jpg?raw=true) 
-
 
         
         
 ------      
         
 <h2 id='3'>三、前端三层结构与应用</h2>
-<h3 id='3.1'>[3.1 结构层HTML、表现层CSS和行为层JavaScript</h3>  
+<h3 id='3.1'>3.1 结构层HTML、表现层CSS和行为层JavaScript</h3>  
         
 >>>>>> ![图3-1](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE3-1.jpg?raw=true) 
+                
+<h3 id='3.2'>3.2 前端结构层演进</h3> 
+                
 >>>>>> ![图3-2](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE3-2.jpg?raw=true) 
+            
+<h3 id='3.3'>3.3 浏览器脚本演进历史</h3> 
+                
 >>>>>> ![图3-3](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE3-3.jpg?raw=true) 
 >>>>>> ![图3-4](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE3-4.jpg?raw=true) 
 >>>>>> ![图3-5](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE3-5.jpg?raw=true) 
+                
+<h3 id='3.4'>3.4 前端表现层基础</h3> 
+<h3 id='3.5'>3.5 响应式网站开发技术</h3> 
+                
 >>>>>> ![图3-6](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE3-6.jpg?raw=true) 
 >>>>>> ![图3-7](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE3-7.jpg?raw=true) 
 >>>>>> ![图3-8](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE3-8.jpg?raw=true) 
-
 
         
         
@@ -331,6 +352,13 @@
 <h3 id='4.1'>4.1 直接DOM操作时代</h3>  
         
 >>>>>> ![图4-1](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE4-1.jpg?raw=true) 
+                
+<h3 id='4.2'>4.2 MV*交互模式</h3>  
+        
 >>>>>> ![图4-2](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE4-2.jpg?raw=true) 
+                
+<h3 id='4.3'>4.3 数据变更检测</h3> 
+<h3 id='4.4'>4.4 Virtual DOM交互模式</h3>
+        
 >>>>>> ![图4-3](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE4-3.jpg?raw=true) 
 >>>>>> ![图4-4](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE4-4.jpg?raw=true) 
