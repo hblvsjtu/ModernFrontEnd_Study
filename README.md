@@ -34,6 +34,11 @@
 ### [4.2 MV*交互模式](#4.2)
 ### [4.3 数据变更检测](#4.3)
 ### [4.4 Virtual DOM交互模式](#4.4)
+## [五、前端项目与技术实践](#5)
+### [5.1 前端开发规范](#5.1)
+### [4.2 MV*交互模式](#4.2)
+### [4.3 数据变更检测](#4.3)
+### [4.4 Virtual DOM交互模式](#4.4)
 
         
         
@@ -362,3 +367,117 @@
         
 >>>>>> ![图4-3](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE4-3.jpg?raw=true) 
 >>>>>> ![图4-4](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE4-4.jpg?raw=true) 
+
+        
+        
+------      
+        
+<h2 id='5'>五、现代前端交互框架</h2>
+<h3 id='5.1'>5.1 前端开发规范</h3>  
+        
+#### 1) 前端通用规范
+> - 内容编码
+>> - HTML 文档中使用
+                
+                <meta charset="utf-8">
+>> - 不需要为CSS显示定义编码。其默认为utf-8
+                
+                @charset "utf-8"
+>> - 
+> - 小写 所有的HTML标签，HTML标签属性，样式名及规则建议使用小写，而id值可以使用驼峰式命名
+#### 2) 前端HTML规范
+> - head内容  必须要有title、keyword、description，保证基本的SEO页面关键字和内容描述，移动端还要手动添加viewport控制页面不缩放，有利于提高页面渲染的性能。建议在添加一些社交RICH化的消息，保证网页地址分享到主流社交平台显示页面的缩略图、标题和描述
+                
+                <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+                <meta itemprop="name" content="页面标题">
+                <meta name="description" itemprop="description" content="页面内容描述">
+                <meta itemprop="image" content="https://cn.vuejs.org/images/logo.png">
+> - 使用label的for属性扩大点选区
+> - 简写方式 单位0的缩写后面不需要带单位，以0为个位数的小数前面的0可以省略不写
+> - Hack写法 从全面到局部 针对IE可以使用条件注释作为预留Hack使用
+                
+                ul {
+                    color: #000; /* For all */
+                    color: #111\9; /* For all IE*/
+                    color: #222\0; /* For IE 8 and Later, Opera widthout webkit */
+                    color: #333\9\0; /* For IE 9 and Later */
+                }
+
+                <!--[if <keywords>? IE <version>]?>
+                <link rel="stylesheet" href="./hack.css" />
+                <!-- [endif]-->
+
+                <!--[if lt IE 9]>
+                <script src="/assets/js/html5shiv.min.js"></script>
+                <script src="/assets/js/respond.min.js"></script>
+                <script src="/assets/js/jquery-1.9.0.min.js"></script>
+                <![endif]-->
+
+                <!--[if gte IE 9]>
+                <script src="/assets/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+                <![endif]-->
+
+                <!--[if !IE]> <-->
+                <script src="/assets/js/jquery-3.2.0.min.js" type="text/javascript"></script>
+                <!--> <![endif]-->
+> - 优雅降级和渐进增强 [cc_ccc博客](https://www.cnblogs.com/cxying93/p/6042851.html)
+>> - 渐进增强 progressive enhancement：针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。
+>> - 优雅降级 graceful degradation：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。
+>> - 建议使用渐进增强
+                
+                .transition { /*渐进增强写法*/
+                  -webkit-transition: all .5s;
+                     -moz-transition: all .5s;
+                       -o-transition: all .5s;
+                          transition: all .5s;
+                }
+
+                .transition { /*优雅降级写法*/
+                          transition: all .5s;
+                       -o-transition: all .5s;
+                     -moz-transition: all .5s;
+                  -webkit-transition: all .5s;
+                }
+> - 模块多变量的导入导出尽量使用对象解构
+                
+                // 不推荐
+                import * as util from './lib/util';
+
+                // 推荐
+                import { time }  util from './lib/util';
+
+                // 不推荐
+                export default { time } from './lib/util';
+
+                // 推荐
+                import { time }  from './lib/util';
+                export default time
+> - 生成器yield进行异步操作的时候需要使用try...catch包裹
+                
+                const generator = function*() {
+                    try {
+                        yield return 1;
+                    }catch(e) {
+                        console.log(e);
+                    }
+                    try {
+                        yield return 2;
+                    }catch(e) {
+                        console.log(e);
+                    }
+                    try {
+                        yield return 3;
+                    }catch(e) {
+                        console.log(e);
+                    }
+                    try {
+                        yield return 4;
+                    }catch(e) {
+                        console.log(e);
+                    }
+                }
+
+                let g = generator();
+                g.next();
+> - 
+> - 
