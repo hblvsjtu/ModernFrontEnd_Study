@@ -36,8 +36,8 @@
 ### [4.4 Virtual DOM交互模式](#4.4)
 ## [五、前端项目与技术实践](#5)
 ### [5.1 前端开发规范](#5.1)
-### [4.2 MV*交互模式](#4.2)
-### [4.3 数据变更检测](#4.3)
+### [5.2 自动化构建](#5.2)
+### [5.3 前端性能优化](#5.3)
 ### [4.4 Virtual DOM交互模式](#4.4)
 
         
@@ -479,5 +479,234 @@
 
                 let g = generator();
                 g.next();
+#### 3) 模块化规范
+> - JS文件之间相互依赖引用的一种通用的语法约定
+>> - AMD  运行在浏览器端的模块化异步加载规范，主要以requireJS为代表
+基本原理：定义define和require方法异步请求对应的js模块文件到浏览器端运行模块导出时可以使用函数中的return返回结果
+                
+                // id：模块的命名，可选参数
+                // dependencies：加载的模块依赖列表
+                // factory： 处理函数，即对dependencies加载的模块进行处理
+                define(id, dependencies, factory);
+
+                // mod-A.js
+                define('A', ['zepto'], function($){
+                    return {
+                        init() {
+                            console.log('A');
+                        }
+                    }
+                });
+
+                // mod-B.js
+                define('B', ['zepto'], function($){
+                    return {
+                        init() {
+                            console.log('B');
+                        }
+                    }
+                });
+
+                // 页面引用依赖的方法
+                require('main', ['./mod-A.js', './mod-B.js'], function(A, B){
+                    A.init();
+                    B.init();
+                })
+>> - CMD Seajs提出的一种模块化的规范，类似于CommonJS的书写规范，按照按需执行依赖加载的原则。此外加载完某个依赖模块文件后不立即执行，在所有的依赖模块都加载完后才进入主模块逻辑，遇到模块运行语句的时候才执行对应的模块，这跟AMD有区别
+                
+                define(function(require, exports, module) {
+
+                });
+                
+                // 与AMD的规范不同，引用mod-A.js和mod-B.js两个文件后，seajs会下载两个模块文件但不会立即执行，在运行init方法后才会分别执行两个模块及处理函数的动作
+                seajs.use(['./mod-A.js', './mod-B.js'],function(A, B) {
+                    A.init();
+                    B.init();
+                });
+
+                // mod-A.js
+                define(function(require, exports, module) {
+                    let $ = require('zepto');
+                    module.exports = {
+                        init() {
+                            console.log('A');
+                        }
+                    }
+                });
+
+                // mod-B.js
+                define(function(require, exports, module) {
+                    let $ = require('zepto');
+                    module.exports = {
+                        init() {
+                            console.log('B');
+                        }
+                    }
+                });
+>> - CommonJS是Node端使用的JS规范，使用require进行模块引入，并使用modules.exports jin进行导出，写法更加清晰简洁
+                
+                // main.js
+                let A = require('./mod-A.js'),
+                    B = require('./mod-B.js');
+                    A.init();
+                    B.init();
+
+                // mod-A.js
+                const $ = require('zepto');
+                module.exports = {
+                    init() {
+                        console.log('A');
+                    }
+                }
+
+                // mod-B.js
+                const $ = require('zepto');
+                module.exports = {
+                    init() {
+                        console.log('B');
+                    }
+                }
+>> - ECMAScript 6的import和export，是唯一一个遵循JS语言标准的模块化规范
+                
+                import { initA } from './mod-A.js';
+                import { initB } from './mod-A.js';
+
+                initA();
+                initB();
+
+                // mod-A.js
+                import Zepto as $ from 'zepto';
+
+                export default {
+                    initA() {
+                        console.log('A');
+                    }
+                }
+
+                // mod-B.js
+                import Zepto as $ from 'zepto';
+
+                export default {
+                    initB() {
+                        console.log('B');
+                    }
+                }
+#### 4) 项目组件化设计规范
+> - Web Component组件化 Polymer 支持双向数据绑定 Google在2013年提出来的一个新的UI框架
+>> - 基础层 本地API
+>> - 核心层 基础层的封装库
+>> - 元素层 建立在核心层上的UI组件和非UI组件
+> - MVVM框架组件化  将页面中的模块按照元素来划分，将相关的JS、CSS样式和html放在同一个文件里进行引用
+> - Vitual DOM组件化方案 react.js
+> - 利用目录管理的通用组件化实践 将js，html, scss放在同一个文件夹中
+                
+                /component
+                    index.es   // 组件逻辑处理
+                    index.scss // 组件预处理脚本
+                    index.html // 组件html结构
+                /img           // 组件可能用到的图片
+
+            
+<h3 id='5.2'>5.2 自动化构建</h3>  
+        
+#### 1) 步骤
+> - 1、读取入口文件 读取index.html源文件到字符串Buffer中
+> - 2、分析模块引用 分析页面字符串Buffer中含有的模块引用
+> - 3、按照引用加载模块 进入模块中读取包含的HTML、SCSS、JS文件
+> - 4、模块文件编译处理 进行脚本转译，ES6转ES5，将SCSS文件预处理为CSS
+> - 5、模块文件合并 将所有的JS和CSS代码字符串写入一个新的字符串Buffer中，生成对应的资源路径，并插入到index.html的字符串中
+> - 6、文件优化处理 比如压缩、去注释等
+> - 7、写成生成目录
+            
+<h3 id='5.3'>5.3 前端性能优化</h3>  
+        
+#### 1) 性能测试
+> - Performance Timing API 支持IE9以上版本及WebKit内核浏览器中用于记录页面加载和解析过程中关键时间点的机制
+>> - unload
+>> - redirect
+>> - App Cache
+>> - DNS
+>> - TCP
+>> - Request
+>> - Response
+>> - Processing
+>> - onload
+> - Profile工具
+>> - 分析页面脚本执行过程中最耗资源的操作
+>> - 记录页面脚本执行过程中JS对象消耗内存和对战的使用情况
+>> - 检测页面脚本执行过程中CPU占用情况
+                
+                console.profile();
+                for(let i = 0; i<100000; i++) {
+                    i = i**i;
+                }
+                console.profileEnd();
+> - 页面埋点时间
+                
+                let timeList = [];
+                function addTime(tag) {
+                    timeList.push(
+                        {
+                            'tag': tag,
+                            'time': +new Date()
+                        }
+                    );
+                }
+                function parseTime() {
+                    for(let i = 0; i < addTime.length()-1; i++) {
+                        if(addTime[i] && addTime[i+1] && addTime[i].tag === addTime[i+1].tag) 
+                            console.log('time: ' + addTime[i].tag + ' = ' + addTime[i+1].time - addTime[i].time + ' ms');
+                    }
+                }
+#### 2) 桌面浏览器前端优化策略YSlow
+> - 网络加载类
+>> - 1，减少HTTP资源请求次数
+>> - 2，减少HTTP请求大小
+>> - 3，将CSS或者JS放到外部文件中，避免style或者script标签直接引入
+>> - 4，避免空的href或者src
+>> - 5、模块文件合并，为HTML指定Cache-Control或者Expires
+                
+                <meta http-equiv="Cache-Control" content="max-age=7200" />
+                <meta http-equiv="Expires" content="Mon, 20, Jul 2016 23:00:00 GMT" />
+>> - 6，合理设置Etag和Last-Modified
+>> - 7，减少页面重定向
+>> - 8，使用静态资源分域存放增加下载并行数
+>> - 9，使用静态资源CDN来存储文件
+>> - 10，使用CDN Combo下载传输内容（多个文件请求打包成一个文件的形式来返回的技术）
+>> - 11，使用可缓存的AJAX
+>> - 12，使用GET来完成AJAX请求
+                
+                $.ajax({
+                    url: '',
+                    type: 'get',
+                    data: '',
+                    cache: 'true',
+                    success() {
+
+                    },
+                    error() {
+                        
+                    }
+                });
+>> - 13，减少Cookie的大小并进行Cookie隔离
+>> - 14，缩小favicon.ico并缓存
+>> - 15，推荐使用异步JS资源 异步JS资源不会阻塞文档阻塞，允许在浏览器中优先渲染页面，延后加载脚本执行
+                
+                // 加载后续文档元素的过程和main.js的加载是并行的，但是main.js的执行要在页面所有元素解析完成后才开始执行
+                <script src="./main.js" defer></script>
+
+                // 加载和渲染后续文档元素的过程和main.js的加载和执行是并行的
+                <script src="./main.js" async></script>
+>> - 16，消除阻塞渲染的CSS和JS
+>> - 17，避免使用CSS import引用加载CSS 因为这样会增加CSS资源加载的关键路径长度，如果把它写在style标签中，则会由于需要加载另外的CSS文件而大大延后CSS的渲染时间
+> - 页面渲染类
+>> - 1，把CSS资源引用梵高HTML文件顶部
+>> - 2，JS放在HTML底部
+>> - 3，不要在HTML中直接缩放图片 因为这样做会导致页面内容的重排重绘，有可能会使页面其他操作产生卡顿
+>> - 4，减少DOM元素的数量和深度
+>> - 5，尽量避免使用table和iframe标签，table可以使用ul代替，iframe使用异步的方式进行动态添加
+>> - 6，避免运行耗时的JS
+>> - 7，避免使用CSS表达式或者CSS滤镜
+#### 2) 桌面浏览器前端优化策略YSlow
 > - 
-> - 
+>> - 
