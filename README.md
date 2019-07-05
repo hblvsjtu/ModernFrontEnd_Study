@@ -38,7 +38,11 @@
 ### [5.1 前端开发规范](#5.1)
 ### [5.2 自动化构建](#5.2)
 ### [5.3 前端性能优化](#5.3)
-### [4.4 Virtual DOM交互模式](#4.4)
+### [5.4 前端用户数据分析](#5.4)
+### [5.5 前端搜索引擎优化基础](#5.5)
+## [六、渲染方式](#6)
+### [6.1 前后端分离](#6.1)
+### [6.2 数据渲染](#6.2)
 
         
         
@@ -160,6 +164,8 @@
 #### ４) CSS解析
 > - CSS解析通过权重方式进行计算，！important > 内联样式规则（权重1000） > id选择器（权重100）> 类选择器（权重10）> 元素选择器（权重1）
 >>>>>> ![图1-6 CSS结构解析.png](https://github.com/hblvsjtu/ModernFrontEnd_Study/blob/master/picture/%E5%9B%BE1-6%20CSS%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90.png?raw=true) 
+        
+
                 
 <h3 id='1.4'>1.4 浏览器数据持久化存储技术</h3>  
         
@@ -707,6 +713,200 @@
 >> - 5，尽量避免使用table和iframe标签，table可以使用ul代替，iframe使用异步的方式进行动态添加
 >> - 6，避免运行耗时的JS
 >> - 7，避免使用CSS表达式或者CSS滤镜
-#### 2) 桌面浏览器前端优化策略YSlow
+#### 3) 移动端浏览器前端优化策略
+> - 网络加载类
+>> - 首屏数据请求提前避免JS文件加载后才开始请求数据
+>> - 首屏加载和按需加载非首屏内容滚屏加载保证首屏内容最小化
+>> - 模块化资源并行下载
+>> - inline首屏必备的CSS和JS
+>> - meta dns prefetch设置DNS预解析
+                
+                <!-- cdn域名预解析-->
+                <meta http-equiv="x-dns-prefetch-control" content="on">
+                <link rel="dns-prefetch" href="//cdn.domain.com">
+>> - 资源预加载
+>> - 合理利用MTU策略  通常我们认为TCP最大传输单元MTU为1500B，因此在前后端分离开发模式中，尽量保证页面HTML内容在1KB以内
+> - 缓存类
+>> - 合理利用浏览器缓存
+>> - 静态资源离线方案
+>> - 尝试使用AMP HTML代替原始的元素进行渲染
+> - 图片类
+>> - 图片压缩处理
+>> - 使用较小的图片，合理使用base64内嵌图片（不超过2KB）减少请求数
+>> - 使用更高压缩比格式的图片，如webp
+>> - 图片懒加载
+>> - 使用Media Query或者srcset根据不同的屏幕加载不同大小的图片
+>> - 使用iconfont代替图片图标
+>> - 定义图片大小限制（最大把不超过30KB）
+> - 脚本类
+>> - 尽量使用id选择器 最快
+>> - 合理缓存DOM对象 对于需要重复使用的DOM对象，需要优先设置缓存变量
+                
+                // 不推荐
+                $('#mod .active').remove('active');
+                $('#mod .not-active').remove('active');
+
+                // 推荐
+                let $mod = $('#mod');
+                $mod.find('.active').remove('active');
+                $mod.find('.not-active').remove('active');
+>> - 尽量使用事件代理而非事件绑定
+                
+                // 不推荐
+                $('.btn').on('click', function(e){
+                    console.log(this);
+                })
+
+                // 推荐
+                $('body').on('click', '.btn', function(e){
+                    console.log(this);
+                })
+>> - 使用touchstart代替click  由于移动端宽屏的限制，touchstart事件比click事件快300ms，但是也要注意重叠元素touch动作的点击穿透问题
+>> - 避免touchmove,scroll连续事件处理  需要设置事件节流，例如每隔16ms才进行一次时间处理，避免频繁的时间调用导致移动端页面卡顿
+                
+                // 不推荐
+                $().on('touchmove', '.btn', function(e) {
+                    console.log(this);
+                })
+
+                // 不推荐
+                $().on('touchmove', '.btn', function(e) {
+                    let self = this;
+                    setTimeout(function(e) {
+                        console.log(self);
+                    }, 16);
+                });
+>> - 避免使用eval, with, 使用join代替+，推荐使用ES6的字符串模板
+>> - 尽量使用ES6+的特性进行编程
+> - 渲染类
+>> - 使用Viewport固定屏幕渲染
+>> - 避免各种形式重排重绘
+>> - 使用CSS3动画，开启GPU加速 设置transform:translateZ(0)来开启移动设备浏览器GPU图形处理加速
+>> - 使用Canvas和requestAnimationFrame代替setTimeout/setInterval
+>> - SVG代替图片
+>> - 不滥用float float在布局渲染阶段的计算比较耗能，推荐使用flex-box弹性布局
+>> - 不滥用web字体或过多font-size声明
+> - 架构协议类
+>> - 尝试使用SPDY和HTTP2
+>> - 使用后端数据渲染
+>> - 使用Native View代替DOM的性能劣势
+            
+<h3 id='5.4'>5.4 前端用户数据分析</h3>  
+        
+#### 1) 用户访问统计
+> - PV page View 一天之内页面被所有用户访问的总次数（每一次页面刷新都会增加）
+> - UV Unique Visitor 一天之内页面访问的不同用户数量 最有价值
+>> - 通过浏览器Cookie和IP去识别
+>> - 通过浏览器标识userAgent和IP去统计
+> - VV Visit View 统计网站被用户访问次数的参考数据，通常用户从进入网站到最终离开该网站的整个过程只算一次VV
+> - IP 
+#### 2) 用户行为分析
+> - 页面点击量
+> - 用户点击流分析
+> - 用户访问路径分析
+> - 用户点击热力图
+> - 用户转化率与导流转化率
+                
+                用户转化率 = 通过该页面注册的用户数 / 页面PV
+                导流转化率 = 通过源页导入的页面PV / 原页面PV
+> - 用户访问时长、内容分析
+#### 3) 前端日志上报
+> - try..catch 如果有异步函数则需要把function函数中的整块内容都放进去
+> - window.onerror 但是需要注意的是不同浏览器中实现函数处理返回的一场对象是不相同大的，而且如果报错的JS和HTML不再同一个域名下，错误的msg信息全部是script error而不是具体的错误描述信息，此时需要添加JS的跨域设置
+                
+                window.onerror = funtion(meg, url, line) {
+                    // msg 获取错误信息
+                    // url 获取出错的文件路径
+                    // line 获取错误的行数
+                }
+
+                // JS跨域设置
+                <script src="www://domain.com" crossorigin></script>
+
+            
+<h3 id='5.5'>5.5 前端搜索引擎优化基础 </h3>  
+        
+#### 1) title，keywords，description的优化
+> - title 关键字组合，并用分隔符连接起来 如“_”、“-”、“ ”、“.”，其中“_”比较容易被百度搜索引擎检索到， 其中“-”比较容易被谷歌搜索引擎检索到， 建议控制在30个字符以内，移动端控制在20个字符以内。下面是针对百度搜索引擎的一些优化建议：
+>> - 每个网页独一无二的标题
+>> - 标题主题明确
+>> - 简明精炼
+>> - 重要的信息放前面          
+> - keywords
+> - description
+                <!-- 良好的title设置 -->
+                <title>极限前端_首页_前端技术知识_某某某的博客</title>
+                <meta name="keywords" content="现代前端技术，前端页面SEO优化，极限前端，某某某的博客">
+                <meta name="description" content="本章讲述了前端搜索引擎优化实践技术">
+#### 2) 语义化的标签
+> - 唯一的H1标题
+> - header article nav footer aside 
 > - 
->> - 
+> - img标签添加alt属性
+#### 3) URL规范化
+> - 统一网站地址链接
+> - 301跳转 如果URL发生了改变，一定要使用旧地址301指向新的页面，否则搜索引擎会把原来的这个URL当作死链来处理，之前完成的页面内哦那个收录权重的工作就会失效
+> - canonical 以下三个地址都指向同一个，区别在于不同的来源，在head标签上添加canonical声明，告诉搜索引擎在收录页面时可以按照这个href提供额页面地址去处理，而不是每个地址都进行独立处理
+                
+                //:domain.com/index.html
+                //:domain.com/index.html?from=123
+                //:domain.com/index.html?from=456
+
+                <head rel="canonical" href="//:domain.com/index.html"></head>
+                或者
+                <link rel="canonical" href="https://blog.csdn.net/qq_35159277/article/details/80824980">
+#### 4) robots.txt
+> - 网站站点用来配置搜索引擎专区站点涅日荣路径的一种控制方式，放置在站点根目录下，搜索引擎爬虫访问网站时会访问robots.txt文件，robots.txt可以直到搜索引擎爬虫禁止抓取网站的某些内容或只允许抓取某些内容
+                
+                如果我们禁止百度搜索引擎抓取我们网站上的所有图片的话
+                robots.txt写法如下：
+                User-agent: Baiduspider
+                Disallow: .jpg$
+                Disallow: .jpeg$
+                Disallow: .gif$
+                Disallow: .png$
+                Disallow: .bmp$
+                --------------------- 
+                作者：叶涛-专注互联网 
+                来源：CSDN 
+                原文：https://blog.csdn.net/yetaodiao/article/details/80900133 
+                版权声明：本文为博主原创文章，转载请附上博文链接！
+> - 
+> - 
+
+        
+        
+------      
+        
+<h2 id='6'>六、渲染方式</h2>
+<h3 id='6.1'>6.1 前后端分离</h3>  
+        
+#### 1) SPA场景下的SEO问题
+> - 先加载一个空页面和JS脚本，然后异步请求接口获取数据展示给用户，那么搜索引擎在空页面中是无法抓取body标签中的内容的，着就会影响到收录排行了，尽管在meta中添加keyword和description的内容，但也是不够的
+#### 2) 前后端分离方式页面渲染主要流程
+> - DOM下载
+> - DOM解析
+> - JS文件请求
+> - JS部分执行
+> - 接口请求
+> - DOM渲染
+            
+
+                
+<h3 id='6.2'>6.2 数据渲染</h3>  
+        
+#### 1) 直出层
+> - Node后端数据渲染
+> - 在页面请求的时候将内容渲染到页面上输出，搜索引擎在获取HTML页面的时候就已经包含页面完整的内容，页面也更容易被检索到
+> - 解决了SEO的问题
+#### 2) 模板拼装
+> - 根据不同的userAgent进行选择拼接
+#### 3) 问题
+> - 离线缓存
+                
+<h3 id='6.3'>6.3 前后端同构</h3>  
+        
+#### 1) 基于MVVM的前后端同构
+> - 前端执行解析后生成View Model对象并通过浏览器体现
+> - 后端渲染则生成HTML标签文字字符串输出给浏览器
+#### 2) 基于Vitual DOM的前后端同构
